@@ -518,7 +518,7 @@ async def ranking() -> JSONResponse:
     })
 
 
-@app.post("/v1/chat/completions")
+@app.post("/v1/chat/completions", response_model=None)
 async def chat_completions(request: Request) -> StreamingResponse | JSONResponse:
     try:
         body: dict[str, Any] = await request.json()
