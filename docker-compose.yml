@@ -1,0 +1,18 @@
+services:
+  openrouter-free-proxy:
+    build: .
+    container_name: openrouter-free-proxy
+    restart: unless-stopped
+    ports:
+      - "8800:8800"
+    env_file:
+      - .env
+    environment:
+      # Override any .env values here if needed
+      LOG_LEVEL: INFO
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8800/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
